@@ -51,4 +51,33 @@ router.post("/foods", auth, (req, res) => {
 		.catch((err) => res.status(500).json({ errors: "Internal Server Error" }));
 });
 
+router.get("/foods", auth, (req, res) => {
+	Food.findAll({
+		where: {
+			UserId: req.user_id,
+		},
+	})
+		.then((foods) => {
+			res.status(200).json(foods);
+		})
+		.catch((err) => res.status(500).json({ errors: "Internal Server Error" }));
+});
+
+router.delete("/foods/:id", auth, (req, res) => {
+	console.log(req.params);
+	const { id } = req.params;
+	Food.findByPk(id)
+		.then((food) => {
+			if (+food.UserId !== +req.user_id) {
+				res.status(404).json({ errors: "Food Not Found" });
+			}
+			console.log(food);
+			food.destroy();
+			res
+				.send(200)
+				.json({ message: "Successfully delete food from your menu" });
+		})
+		.catch((err) => res.status(500).json({ errors: "Internal Server Error" }));
+});
+
 module.exports = router;
