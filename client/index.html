@@ -82,7 +82,7 @@
 									<input
 										type="email"
 										class="form-control"
-										id="exampleInputEmail1"
+										id="email-field"
 										aria-describedby="emailHelp"
 										placeholder="Enter email"
 									/>
@@ -93,7 +93,7 @@
 									<input
 										type="password"
 										class="form-control"
-										id="exampleInputPassword"
+										id="password-field"
 										aria-describedby="emailHelp"
 										placeholder="Enter password"
 									/>
@@ -116,7 +116,7 @@
 		<!-- Full App -->
 		<div id="app-page" class="container my-3">
 			<nav class="navbar navbar-light bg-light">
-				<button class="btn btn-primary ml-auto">Logout</button>
+				<button id="logout-btn" class="btn btn-primary ml-auto">Logout</button>
 			</nav>
 			<div class="row">
 				<!-- Add New Food -->
@@ -124,15 +124,17 @@
 					<div class="card mb-4">
 						<div class="card-body">
 							<h5 class="font-weight-light mb-3">Add New Food</h5>
-							<form>
+							<form id="add-food-form">
 								<div class="row">
 									<div class="col-md-12">
 										<input
+											id="name-field"
 											type="text"
 											class="form-control my-2"
 											placeholder="Food name"
 										/>
 										<input
+											id="price-field"
 											type="price"
 											class="form-control my-2"
 											placeholder="Price"
@@ -140,13 +142,14 @@
 										/>
 										<div class="form-group my-2">
 											<textarea
+												id="ingredients-field"
 												class="form-control"
 												rows="3"
 												placeholder="Ingredients"
 											></textarea>
 										</div>
 										<label for="tag">Choose food tag:</label>
-										<select class="form-control">
+										<select class="form-control" id="tag-field">
 											<option value="ayam">ayam</option>
 											<option value="ikan">ikan</option>
 											<option value="other">other</option>

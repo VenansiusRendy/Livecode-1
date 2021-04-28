@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const auth = require("../middlewares/auth");
 const { User, Food } = require("../models");
 
 router.post("/register", (req, res) => {
@@ -30,6 +31,22 @@ router.post("/login", (req, res) => {
 				process.env.JWT_SECRET
 			);
 			res.status(200).json({ access_token });
+		})
+		.catch((err) => res.status(500).json({ errors: "Internal Server Error" }));
+});
+
+router.post("/foods", auth, (req, res) => {
+	const { title, price, ingredients, tag } = req.body;
+	Food.create({
+		title,
+		price,
+		ingredients,
+		tag,
+		UserId: req.user_id,
+	})
+		.then((data) => {
+			const { id, title, price, ingredients, tag, UserId } = data;
+			res.status(201).json({ id, title, price, ingredients, tag, UserId });
 		})
 		.catch((err) => res.status(500).json({ errors: "Internal Server Error" }));
 });
