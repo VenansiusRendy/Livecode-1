@@ -71,10 +71,9 @@ router.delete("/foods/:id", auth, (req, res) => {
 			if (+food.UserId !== +req.user_id) {
 				res.status(404).json({ errors: "Food Not Found" });
 			}
-			console.log(food);
 			food.destroy();
 			res
-				.send(200)
+				.status(200)
 				.json({ message: "Successfully delete food from your menu" });
 		})
 		.catch((err) => res.status(500).json({ errors: "Internal Server Error" }));
